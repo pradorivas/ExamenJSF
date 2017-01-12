@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/plantillas/layout.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="body">
+        <br/><br/><br/><br/>
+        <h:outputText value="Bienvenido al Sistema  #{login.username}"/>
+        <h:form>
+            <p:panelGrid columns="3" id="panel" styleClass="ui-panelgrid" >
+                <f:facet name="header">
+                    Registro de vehiculo
+                </f:facet>
+                <p:outputLabel for="placa" value="#{msjs.placa}"/>
+                <p:inputText value="#{vehiculoBean.vehiculo.placa}" 
+                             required="true"
+                             label="#{msjs.form_placa}" 
+                             id="placa">
+                    <p:ajax update="msgPlaca" event="blur" />
+                </p:inputText>
+                <p:message id="msgPlaca" for="placa"/>
+
+                <p:outputLabel for="marca" value="#{msjs.marca}"/>
+                <p:inputText value="#{vehiculoBean.vehiculo.marca}" 
+                             required="true"
+                             label="marca"
+                             id="marca">
+                    <f:validateLength maximum="20"/>
+                    <p:ajax update="msgmarca" event="blur" />
+                </p:inputText>   
+                <p:message id="msgmarca" for="marca"/>
+
+                <p:outputLabel value="#{msjs.año}" for="año"/>
+                <p:calendar value="#{vehiculoBean.vehiculo.año}"
+                            label="Año"
+                            required="true"
+                            id="año" 
+                            effect="fadeIn" maxdate="today" pattern="dd/mm/yyyy" readonlyInput="true">
+                    <f:validateRegex pattern="[1-2]{1},[0-9]{3}" />
+                </p:calendar>    
+                <p:message for="año"/>
+                
+                <p:outputLabel value="Numero serie"/>
+                <p:inputMask value="#{vehiculoBean.vehiculo.n_serie}" mask="999999999"
+                             id="numero_serie">
+                </p:inputMask>
+                <p:message for="numero_serie"/>
+                
+                <p:outputLabel value="Numero Asientos"/>
+                <p:inputMask value="#{vehiculoBean.vehiculo.n_asientos}" mask="999999"
+                             id="numero_asientos">
+                </p:inputMask>
+                <p:message for="numero_asientos"/>
+                
+                <p:outputLabel value="dis_desde" for="des"/>
+                <p:calendar value="#{vehiculoBean.vehiculo.año}"
+                            label="des"
+                            required="true"
+                            id="des" 
+                            effect="fadeIn" maxdate="today" pattern="dd/mm/yyyy" readonlyInput="true">
+                </p:calendar>    
+                <p:message for="des"/>
+                <p:outputLabel value="dis_hasta" for="has"/>
+                <p:calendar value="#{vehiculoBean.vehiculo.año}"
+                            label="has"
+                            required="true"
+                            id="has" 
+                            effect="fadeIn" maxdate="today" pattern="dd/mm/yyyy" readonlyInput="true">
+                </p:calendar>    
+                <p:message for="has"/>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Registrar" action="#{memo.obtenerVehiculo()}"
+                                     update="@form"/>
+                    <p:commandButton value="Limpiar" update="panel" process="@this">
+                        <p:resetInput target="panel"/>
+                    </p:commandButton>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

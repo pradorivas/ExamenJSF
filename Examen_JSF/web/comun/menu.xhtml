@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:panelGroup style="border:1px solid #ddd;">
+        <h:form>
+            <h:panelGrid columns="5">
+                <h:commandLink action="inicio" styleClass="par">
+                    <h:outputFormat value="#{msjs.menu_home}"/>
+
+                </h:commandLink>
+
+                <h:commandLink value="#{msjs.menu_add}"
+                               actionListener="#{reporte.confirmarAccion}" 
+                               action="#{reporte.consultar}"
+                               styleClass="impar">
+                    <f:attribute name="tipo" value="add"/>
+                    <f:attribute name="titulo" value="add_vehicle"/>
+                </h:commandLink>
+                <h:commandLink value="#{msjs.menu_show}"
+                               actionListener="#{reporte.confirmarAccion}" 
+                               action="#{reporte.consultar}"
+                               styleClass="par">
+                    <f:attribute name="tipo" value="show"/>
+                    <f:attribute name="titulo" value="show_vehicle"/>
+                </h:commandLink>
+                
+                <h:commandLink value="English/Español"
+                               action="#{localeBean.cambiaLocale}" />
+            </h:panelGrid>
+        </h:form>
+    </h:panelGroup>
+</ui:composition>
